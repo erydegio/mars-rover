@@ -79,7 +79,6 @@ namespace MarsRover
         }
 
         // Receive a character array of commands and turn them into movements
-
         public void GetCommands(char[] commands)
         {
 
