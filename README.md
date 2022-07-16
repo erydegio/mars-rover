@@ -19,8 +19,8 @@ This program translates the commands sent from earth to instructions that are un
 ## How to run
 
 This project is a C# Console Application (.NET 6 SDK installation required).  
-After cloning this repository find the solution file in ```\MarsRover\``` folder and enter the command ```dotnet run```.
+After cloning this repository find the solution file in ```\MarsRover``` folder and enter the command ```dotnet run```.
   
 ## Tests
-You can run Tests in the project folder ```\MarsRover.Tests\``` and run ```dotnet test``` from the console.
+You can run Tests in the project folder ```\MarsRover.Tests``` and run ```dotnet test``` from the console.
 
