@@ -1,0 +1,25 @@
+name: Build-and-Test
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build-and-test:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v2
+      with:
+        dotnet-version: 6.0.x
+    - name: Restore dependencies
+      run: dotnet restore ./MarsRover
+    - name: Build
+      run: dotnet build ./MarsRover --no-restore
+    - name: Test
+      run: dotnet test ./MarsRover.Tests --no-restore
