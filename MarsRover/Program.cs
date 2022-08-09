@@ -5,14 +5,15 @@ using MarsRover;
 
 Rover rover = new Rover(new Mars());
 
-char[] a = { 'f', 'l', 'f', 'r', 'f', 'f' };
+
+char[] a = { 'r', 'f', 'f', 'f', 'f', 'f', 'f'};
 char[] b = { 'f', 'f', 'r', 'f', 'f', 'f','b' };
 char[] d = { 'r', 'f', 'g', 'b','f'};
 
 
 rover.GetCommands(a);
-rover.GetCommands(b);
-rover.GetCommands(d);
+//rover.GetCommands(b);
+//rover.GetCommands(d);
 
 
 while (true)
@@ -21,6 +22,6 @@ while (true)
     string input = Console.ReadLine();
     if (input == "exit")
     {
-        break;  
+        break;
     }
 }

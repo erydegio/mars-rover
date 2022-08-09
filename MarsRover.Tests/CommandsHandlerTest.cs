@@ -10,163 +10,127 @@ namespace MarsRover.Tests
     {
 
         [Fact]
-        public void CommandsHandlerTest_GivenCommandlShouldTurnLeft()
+        public void GivenCommandRShouldTurn()
         {
             //Arrange
             CommandsHandler handler = new CommandsHandler();
-            Rover r = new Rover(new Mars());
+            Position p = new Position(0, 0, Directions.N);
+            Position expectedPosition = new Position(0, 0, Directions.E);
 
-            int[,] map = r.PlanetMap.Map; 
-            char command = 'l';
-
-            //Act
-            var result = handler.HandleCommand(command,map, r);
-
-            //Assert
-            Assert.Equal(3, result.Direction);
-            Assert.True(result.Turning);
-        }
-
-        [Fact]
-        public void CommandsHandlerTest_GivenCommandrShouldTurnRight()
-        {
-            //Arrange
-            CommandsHandler handler = new CommandsHandler();
-            Rover r = new Rover(new Mars());
-
-            int[,] map = r.PlanetMap.Map;
             char command = 'r';
 
             //Act
-            var result = handler.HandleCommand(command, map, r);
+            var result = handler.HandleCommand(command, p);
 
             //Assert
-            Assert.Equal(1, result.Direction);
             Assert.True(result.Turning);
+            Assert.False(result.Error);
+            Assert.Equal(expectedPosition, result.Position);
         }
 
 
         [Fact]
-        public void CommandsHandlerTest_GivenCommandfRoverShoulGoForward()
+        public void GivenCommandFShoulGoForward()
         {
             //Arrange
             CommandsHandler handler = new CommandsHandler();
-            Rover r = new Rover(new Mars());
-
-            int[,] map = r.PlanetMap.Map;
-            char command = 'f';
-            int expectedMapPositionY = 1;
-
-
-            //Act
-            var result = handler.HandleCommand(command, map, r);
-
-            //Assert
-            Assert.Equal(expectedMapPositionY, result.Y);
-
-        }
-
-        [Fact]
-        public void CommandsHandlerTest_GivenCommandbRoverShoulGoBackward()
-        {
-            //Arrange
-            CommandsHandler handler = new CommandsHandler();
-            Rover r = new Rover(new Mars());
-
-            int[,] map = r.PlanetMap.Map;
-            char command = 'b';
-            int expectedMapPositionY = 4;
-
-            //Act
-            var result = handler.HandleCommand(command, map, r);
-
-            //Assert
-            Assert.Equal(expectedMapPositionY, result.Y);
-
-        }
-
-        [Fact]
-        public void HandleCommandTest_ShouldMoveOnXAxisGivenCommandbAndRoverFacingWest()
-        {
-            //Arrange
-            CommandsHandler handler = new CommandsHandler();
-            Rover r = new Rover(new Mars());
-            r.DirIndex = 1;
-
-            int[,] map = r.PlanetMap.Map;
-            char command = 'b';
-            int expectedMapPositionX = 4;
-
-            //Act
-            var result = handler.HandleCommand(command, map, r);
-
-            //Assert
-            Assert.Equal(expectedMapPositionX, result.X);
-
-        }
-
-        [Fact]
-        public void HandleCommandTest_ShouldMoveOnXAxisGivenCommandfAndRoverFacingWest()
-        {
-            //Arrange
-            CommandsHandler handler = new CommandsHandler();
-            Rover r = new Rover(new Mars());
-            r.DirIndex = 1;
-
-            int[,] map = r.PlanetMap.Map;
-
+            Position p = new Position(0, 0, Directions.N);
+            Position expectedPosition = new Position(0, 1, Directions.N);
 
             char command = 'f';
-            int expectedMapPositionX = 1;
+
 
             //Act
-            var result = handler.HandleCommand(command, map, r);
+            var result = handler.HandleCommand(command, p);
 
             //Assert
-            Assert.Equal(expectedMapPositionX, result.X);
+            Assert.False(result.Turning);
+            Assert.False(result.Error);
+            Assert.Equal(expectedPosition, result.Position);
 
         }
 
         [Fact]
-        public void HandleCommandTest_ShouldSetErrorIfCommandNotImplemented()
+        public void GivenCommandBShoulGoBackward()
         {
             //Arrange
             CommandsHandler handler = new CommandsHandler();
-            Rover r = new Rover(new Mars());
-            r.DirIndex = 1;
+            Position p = new Position(0, 0, Directions.N);
+            Position expectedPosition = new Position(0, -1, Directions.N);
+           
+            char command = 'b';
 
-            int[,] map = r.PlanetMap.Map;
+            //Act
+            var result = handler.HandleCommand(command, p);
 
+            //Assert
+            Assert.False(result.Turning);
+            Assert.False(result.Error);
+            Assert.Equal(expectedPosition, result.Position);
+        }
+
+        [Fact]
+        public void GivenCommandLShouldTurn()
+        {
+            //Arrange
+            CommandsHandler handler = new CommandsHandler();
+            Position p = new Position(0, 0, Directions.E);
+            Position expectedPosition = new Position(0, 0, Directions.N);
+
+            char command = 'l';
+
+            //Act
+            var result = handler.HandleCommand(command,p );
+
+            //Assert
+            Assert.True(result.Turning);
+            Assert.False(result.Error);
+            Assert.Equal(expectedPosition, result.Position);
+
+        }
+
+        [Fact]
+        public void GivenCommandJShouldMoveForwardBy2()
+        {
+            //Arrange
+            CommandsHandler handler = new CommandsHandler();
+            Position p = new Position(0, 0, Directions.N);
+            Position expectedPosition = new Position(0, 2, Directions.N);
+
+            char command = 'j';
+
+            //Act
+            var result = handler.HandleCommand(command, p);
+
+            //Assert
+            Assert.False(result.Turning);
+            Assert.False(result.Error);
+            Assert.Equal(expectedPosition, result.Position);
+        }
+
+        [Fact]
+        public void ShouldSetErrorIfCommandNotImplemented()
+        {
+            //Arrange
+            CommandsHandler handler = new CommandsHandler();
+            Position p = new Position(0, 0, Directions.N);
+            Position? expectedPosition = null;
 
             char command = 'w';
-            bool expectedErrorFlag = true;
 
             //Act
-            var result = handler.HandleCommand(command, map, r);
+            var result = handler.HandleCommand(command, p);
 
             //Assert
-            Assert.Equal(expectedErrorFlag, result.Error);
+            Assert.False(result.Turning);
+            Assert.True(result.Error);
+            Assert.Equal(expectedPosition, result.Position);
 
         }
-
-        
-        [Theory]
-        [InlineData(3, 2, 0)]
-        [InlineData(-1, 2, 2)]
-        public void WrapTest_ShouldWrapNumberReachedItsMaxOrMinValue(int position, int maxvalue, int expected)
-        {
-            //Arrange
-            CommandsHandler handler = new CommandsHandler();
-
-            // Act
-            var result = handler.Wrap(position, maxvalue);
-
-            //Assert
-            Assert.Equal(expected, result);
-
-        }
-
-
 
     }
+
+
 }
+    
+

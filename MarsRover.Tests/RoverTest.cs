@@ -3,93 +3,87 @@ namespace MarsRover.Tests
     public class RoverTest
     {
         [Fact]
-        public void RoverClassTest_VerifyStartingPosition()
+        public void CheckStartingPosition()
         {
             //Arrange
             Rover r = new Rover(new Mars());
-
-            int x = 0;
-            int y = 0;
-            int direction = 'N';
-
+            Position expected = new Position(0, 0, Directions.N);
             
             //Act / Assert
-            Assert.True(r.X == x);
-            Assert.True(r.Y == y);
-            Assert.True(r.Directions[r.DirIndex] == direction);
+            Assert.Equal(expected, r.Position);
+
         }
 
         [Fact]
-        public void DetectObstaclesTest_ShouldThrowExceptionIfFoundObstacle()
+        public void DetectObstaclesTest_ShouldReturnTrueIfFoundObstacle()
         {
             // Arrange
             Rover r = new Rover(new Mars());
-
-            int[,] map =
-            {
-                { 1, 0, 0},
-                { 1, 0, 0},
-                { 1, 0, 0}
-            };
-
-            Instructions instr = new Instructions();
-            instr.X = 0;
-            instr.Y = 0;
-            instr.Direction = 'N';
+            Position p = new Position(1, 2, Directions.N);
 
             //Act / Assert
-            Assert.Throws<Exception>(() => r.DetectoObstacles(instr, map));
-
+            Assert.True(r.DetectoObstacles(p));
         }
 
         [Fact]
-        public void DetectObstaclesTest_ShouldReturnFalseIfNotFoudObstacle()
+        public void DetectObstaclesTest_ShouldReturnFaklseIfNotFoundObstacle()
         {
             // Arrange
             Rover r = new Rover(new Mars());
-
-            int[,] map =
-            {
-                { 1, 0, 0},
-                { 1, 0, 0},
-                { 1, 0, 0}
-            };
-
-            Instructions instr = new Instructions();
-            instr.X = 0;
-            instr.Y = 1;
-            instr.Direction = 'N';
+            Position p = new Position(0, 2, Directions.N);
 
             //Act / Assert
-            Assert.False(r.DetectoObstacles(instr, map));
+            Assert.False(r.DetectoObstacles(p));
         }
 
-        [Fact]
 
-        public void MoveTest_ShouldUpdateRoverPositionGivenInstructions()
+        [Fact]
+        public void MoveTest_GivingInstructionToObstacleShoulReturnFalse()
         {
             // Arrange
             Instructions instr = new Instructions();
-            instr.X = 1;
-            instr.Y = 1;
-            instr.Direction = 4;
-
+            instr.Position = new Position(1, 2, Directions.N);
             Rover r = new Rover(new Mars());
+
+            //Act
+            var result = r.Move(instr);
+
+            //Assert
+            Assert.False(result);
+            
+        }
+
+        [Fact]
+        public void MoveTest_GivingCorrectInstructionShouldReturnTrue()
+        {
+            // Arrange
+            Instructions instr = new Instructions();
+            instr.Position = new Position(1, 1, Directions.N);
+            Rover r = new Rover(new Mars());
+
+            //Act
+            var result = r.Move(instr);
+
+            //Assert
+            Assert.True(result);
+
+        }
+
+        [Fact]
+        public void MoveTest_GivingCorrectInstructionShouldUpdateRoverPosition()
+        {
+            // Arrange
+            Instructions instr = new Instructions();
+            instr.Position = new Position(1, 1, Directions.N);
+            Rover r = new Rover(new Mars());
+            Position expected = new Position(1, 1, Directions.N);
 
             //Act
             r.Move(instr);
 
-            //Assert
-            Assert.True(r.X == 1);
-            Assert.True(r.Y == 1);
-            Assert.True(r.DirIndex == 4);
+            //Act/ Assert
+            Assert.Equal( expected, r.Position);
         }
-
-
-
-
-
-
 
     }
 }

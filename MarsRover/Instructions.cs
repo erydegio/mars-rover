@@ -9,32 +9,26 @@ namespace MarsRover
 
     public class Instructions
     {
-        private int x;
-        private int y;
-        private int direction;
+
+
+        private Position position;
         private bool turning = false;
         private bool error = false;
+
 
         public bool Turning
         {
             get { return turning; }
             set { turning = value; }
         }
-        public int X
-        {
-            get { return x; }
-            set { x = value; }
-        }
 
-        public int Y
+        public Position Position
         {
-            get { return y; }
-            set { y = value; }
-        }
-        public int Direction
-        {
-            get { return direction; }
-            set { direction = value; }
+            get { return position; }
+            set
+            {
+                position = value;
+            }
         }
 
         public bool Error
@@ -43,6 +37,7 @@ namespace MarsRover
             set { error = value; }
         }
 
-
     }
 }
+
+  
