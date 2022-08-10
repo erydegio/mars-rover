@@ -8,10 +8,10 @@ namespace MarsRover
 {
 
     /// <summary>
-    /// Translate a command into an instruction
+    /// Read the current position of the rover and return new coordinates
     /// </summary>
     /// <param name="p">The actual position of the rover before receiving a command</param>
-    /// <returns> A Position object with the new cordinates</returns>
+    /// <returns> Rover next position</returns>
     public interface ICommandHandler
     {
         Position HandleCommand(Position p);

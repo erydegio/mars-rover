@@ -17,7 +17,7 @@ namespace MarsRover
         /// Translate a command into an instruction 
         /// </summary>
         /// <param name="command">A single command</param>
-        /// <param name="rover">A rover object, the new instructions are based on its state</param>
+        /// <param name="position">The current position of the rover</param>
         /// <returns>Return an Instructions object</returns>
         public Instructions HandleCommand(char command, Position position)
         {

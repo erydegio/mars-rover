@@ -38,9 +38,8 @@ namespace MarsRover
         /// <summary>
         /// Detect an obstacle (represented on the map grid by int 1)
         /// </summary>
-        /// <param name="ins">Instructions given to the rover for its next move</param>
-        /// <param name="map">The grid representing the planet field</param>
-        /// <returns>Throw an error if an obstacle is deteced</returns>
+        /// <param name="p">Rover next position</param>
+        /// <returns>true if there is an obstacle in the next position else false</returns>
         public bool DetectoObstacles(Position p)
         {
          
@@ -54,7 +53,7 @@ namespace MarsRover
         // Receive a character array of commands and turn them into movements
         public void GetCommands(char[] commands)
         {
-
+            Console.WriteLine("\n");
             foreach (char command in commands)
             {
 
@@ -75,7 +74,7 @@ namespace MarsRover
                     Console.WriteLine("OBSTACLE DETECTED...ABORT\n");
                     break;
                 };
-                Console.WriteLine($"Rover moved, new position: {position.Direction}({Position.X},{position.Y})....\n");
+                Console.WriteLine($"Rover moved, new position: {position.Direction}({Position.X},{position.Y})....");
             }
         }
 

@@ -27,7 +27,7 @@ namespace MarsRover
             map = new int[5, 5]
             {
                 { 0, 0, 0 ,0, 0 },
-                { 0, 0, 1 ,0, 0 },
+                { 1, 0, 1 ,0, 0 },
                 { 0, 0, 1 ,1, 0 },
                 { 0, 0, 0 ,0, 0 },
                 { 0, 0, 0 ,0, 0 }
@@ -77,8 +77,7 @@ namespace MarsRover
             return new Position(
                     WrapMap(p.X),
                     WrapMap(p.Y),
-                    WrapDirection(p.Direction)
-                    );
+                    WrapDirection(p.Direction));
         }
 
     }
