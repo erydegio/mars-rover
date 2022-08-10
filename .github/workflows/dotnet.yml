@@ -17,9 +17,15 @@ jobs:
       uses: actions/setup-dotnet@v2
       with:
         dotnet-version: 6.0.x
+        
     - name: Restore dependencies
       run: dotnet restore ./MarsRover
+      
     - name: Build
       run: dotnet build ./MarsRover --no-restore
+      
     - name: Test
-      run: dotnet test ./MarsRover.Tests --no-restore
+      run: dotnet test ./MarsRover --no-build --verbosity normal /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
+        
+    - name: Codecov
+      uses: codecov/codecov-action@v3.1.0
