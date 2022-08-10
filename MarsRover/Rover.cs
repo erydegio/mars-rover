@@ -59,10 +59,7 @@ namespace MarsRover
             {
 
                 // Read the command and create an Instruction object
-                Instructions instructions = c.HandleCommand(command, this.position);
-
-                //wrap the position in according to the planet
-                instructions.Position = planet.Wrap(instructions.Position);
+                Instructions instructions = c.HandleCommand(command, this.position);              
 
                 // If is given a wrong command print an error and read the next command
                 if (instructions.Error)
@@ -85,6 +82,9 @@ namespace MarsRover
         // Set rover new position wrapping the coordinates        
         public bool Move(Instructions i)
         {
+            //wrap the position in according to the planet grid / coordinates
+            i.Position = planet.Wrap(i.Position);
+
             // If the rover moves forward/backward and detect an obstacle
             if ((!i.Turning) && DetectoObstacles(i.Position))
             {
